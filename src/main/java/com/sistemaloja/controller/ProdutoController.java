@@ -40,7 +40,6 @@ public class ProdutoController {
      return new ProdutoViewDTO(produtoRepository.findById(id).orElseThrow());
 
     }
-
     @GetMapping
     public List<ProdutoViewDTO> findAll(){
      List<Produto>produtoList = produtoRepository.findAll();
@@ -49,4 +48,18 @@ public class ProdutoController {
              .map(ProdutoViewDTO::new)
              .toList();
     }
+
+    @PutMapping("/{id}")
+    public void update(@PathVariable Long id, @RequestBody ProdutoDTO produtoDTO){
+       Produto produto = produtoRepository.findById(id).orElseThrow();
+        produto.setNome(produtoDTO.nome());
+        produto.setPreco(produtoDTO.preco());
+        produto.setDescricao(produtoDTO.descricao());
+        produto.setQuantidadeMinima(produtoDTO.quantidadeMinima());
+        produto.setQuantidade(produtoDTO.quantidade());
+
+        produtoRepository.save(produto);
+
+    }
+
 }
