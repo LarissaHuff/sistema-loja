@@ -23,7 +23,8 @@ public class Cliente {
     private TipoDocumento tipoDocumento;
     private LocalDate dataNascimento;
     @OneToMany(mappedBy = "cliente")
-    private List<CarrinhoDeCompras> carrinhoDeCompras;
+
+    private List<CestoCompras> cestoCompras;
 
 
 }

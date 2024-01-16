@@ -6,10 +6,10 @@ import lombok.Setter;
 
 
 @Entity
-@Table
+@Table(name= "carrinho")
 @Getter
 @Setter
-public class CarrinhoDeCompras {
+public class CestoCompras {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
