@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Table
 @Entity
 @Getter
@@ -22,6 +24,9 @@ public class Compra {
 
     @Enumerated(EnumType.STRING)
     private TipoPagamento tipoPagamento;
+
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL)
+    private List<DetalheCompra> detalheCompraList;
 
 
 }

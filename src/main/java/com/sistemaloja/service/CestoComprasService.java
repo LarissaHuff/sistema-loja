@@ -54,6 +54,11 @@ public class CestoComprasService {
 
     }
 
+    public void removerTodosItensDoCesto(Cliente cliente) {
+        comprasRepository.deleteAll(cliente.getCestoCompras());
+
+    }
+
     public void alterarQuantidadeItem(Long idCliente, Integer quantidadeNova, Long idProduto) {
         List<CestoCompras> cesto = clienteService.findCesto(idCliente);
 

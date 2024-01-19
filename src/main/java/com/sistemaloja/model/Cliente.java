@@ -29,10 +29,8 @@ public class Cliente {
 
     public Integer valorTotal(){
         int sum = 0;
-        for (int i = 0; i < this.cestoCompras.size(); i++) {
-
-            CestoCompras cestoCompras = this.cestoCompras.get(i);
-            int preco = cestoCompras.getProduto().getPreco();
+        for (CestoCompras cesto : this.cestoCompras) {
+            int preco = cesto.getProduto().getPreco();
             sum += preco;
         }
         return sum;

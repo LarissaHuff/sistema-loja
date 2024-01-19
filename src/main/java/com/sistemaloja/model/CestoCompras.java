@@ -22,6 +22,7 @@ public class CestoCompras {
     @JoinColumn(name = "produto_id")
     private Produto produto;
 
+
     private Integer quantidadeProduto;
 
 
