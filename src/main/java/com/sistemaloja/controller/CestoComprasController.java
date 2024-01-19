@@ -1,10 +1,11 @@
 package com.sistemaloja.controller;
 
+import com.sistemaloja.dto.CestoClienteViewDTO;
 import com.sistemaloja.dto.CestoDTO;
 import com.sistemaloja.service.CestoComprasService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/clientes/{idCliente}/cesto")
@@ -24,6 +25,11 @@ public class CestoComprasController {
         } else {
             cestoComprasService.removerItemDoCesto(idCliente, idProduto);
         }
+    }
+
+    @GetMapping
+    public CestoClienteViewDTO getCesto(@PathVariable Long idCliente) {
+        return cestoComprasService.getCesto(idCliente);
     }
 
     @PutMapping

@@ -22,9 +22,19 @@ public class Cliente {
     @Enumerated(EnumType.STRING)
     private TipoDocumento tipoDocumento;
     private LocalDate dataNascimento;
-    @OneToMany(mappedBy = "cliente")
 
+    @OneToMany(mappedBy = "cliente")
     private List<CestoCompras> cestoCompras;
 
 
+    public Integer valorTotal(){
+        int sum = 0;
+        for (int i = 0; i < this.cestoCompras.size(); i++) {
+
+            CestoCompras cestoCompras = this.cestoCompras.get(i);
+            int preco = cestoCompras.getProduto().getPreco();
+            sum += preco;
+        }
+        return sum;
+    }
 }

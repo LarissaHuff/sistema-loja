@@ -1,11 +1,12 @@
 package com.sistemaloja.service;
 
-import com.sistemaloja.controller.ClienteController;
+import com.sistemaloja.dto.CestoClienteViewDTO;
+import com.sistemaloja.dto.CestoDTO;
+import com.sistemaloja.dto.ClienteViewDTO;
 import com.sistemaloja.model.CestoCompras;
 import com.sistemaloja.model.Cliente;
 import com.sistemaloja.model.Produto;
 import com.sistemaloja.repository.CestoComprasRepository;
-import com.sistemaloja.repository.ClienteRepository;
 import com.sistemaloja.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,8 +65,20 @@ public class CestoComprasService {
 
     }
 
+    public CestoClienteViewDTO getCesto(Long idCliente) {
+        Cliente cliente = clienteService.findById(idCliente);
+
+        List<CestoDTO> cestoDTO = cliente.getCestoCompras().stream()
+                .map(it -> new CestoDTO(it.getId(), it.getQuantidadeProduto()))
+                .toList();
+
+        return new CestoClienteViewDTO(cestoDTO, cliente.valorTotal());
+
+    }
+
     private static CestoCompras setQuantidade(Integer quantidadeNova, CestoCompras cesto) {
         cesto.setQuantidadeProduto(quantidadeNova);
         return cesto;
     }
+
 }
