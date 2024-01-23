@@ -2,5 +2,5 @@ package com.sistemaloja.dto;
 
 import com.sistemaloja.enumeration.TipoPagamento;
 
-public record FormaPagamentoDTO(TipoPagamento tipoPagamento) {
+public record CompraDTO(TipoPagamento tipoPagamento, String codigo) {
 }

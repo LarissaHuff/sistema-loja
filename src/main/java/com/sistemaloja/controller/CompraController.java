@@ -1,6 +1,6 @@
 package com.sistemaloja.controller;
 
-import com.sistemaloja.dto.FormaPagamentoDTO;
+import com.sistemaloja.dto.CompraDTO;
 import com.sistemaloja.service.CompraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +12,8 @@ public class CompraController {
     CompraService compraService;
 
     @PostMapping("/cliente/{idCliente}")
-    public void comprar(@PathVariable Long idCliente, @RequestBody FormaPagamentoDTO formaPagamentoDTO) {
-        compraService.comprar(idCliente, formaPagamentoDTO);
+    public void comprar(@PathVariable Long idCliente, @RequestBody CompraDTO compraDTO) {
+        compraService.comprar(idCliente, compraDTO);
 
 
     }

@@ -2,7 +2,6 @@ package com.sistemaloja.service;
 
 import com.sistemaloja.dto.CestoClienteViewDTO;
 import com.sistemaloja.dto.CestoDTO;
-import com.sistemaloja.dto.ClienteViewDTO;
 import com.sistemaloja.model.CestoCompras;
 import com.sistemaloja.model.Cliente;
 import com.sistemaloja.model.Produto;
@@ -44,14 +43,11 @@ public class CestoComprasService {
                 .filter(it -> Objects.equals(it.getProduto().getId(), idProduto))
                 .findAny()
                 .ifPresent(it -> comprasRepository.delete(it));
-
     }
-
 
     public void removerTodosItensDoCesto(Long idCliente) {
         List<CestoCompras> cesto = clienteService.findCesto(idCliente);
         comprasRepository.deleteAll(cesto);
-
     }
 
     public void removerTodosItensDoCesto(Cliente cliente) {
@@ -85,5 +81,4 @@ public class CestoComprasService {
         cesto.setQuantidadeProduto(quantidadeNova);
         return cesto;
     }
-
 }

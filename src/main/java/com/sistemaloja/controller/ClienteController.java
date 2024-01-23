@@ -2,8 +2,7 @@ package com.sistemaloja.controller;
 
 import com.sistemaloja.dto.ClienteDTO;
 import com.sistemaloja.dto.ClienteViewDTO;
-import com.sistemaloja.model.Cliente;
-import com.sistemaloja.repository.ClienteRepository;
+import com.sistemaloja.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,49 +13,31 @@ import java.util.List;
 public class ClienteController {
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private ClienteService clienteService;
+
 
     @PostMapping
     public void cadastrar(@RequestBody ClienteDTO clienteDTO) {
-        Cliente cliente = new Cliente();
-        cliente.setNome(clienteDTO.nome());
-        cliente.setDataNascimento(clienteDTO.dataNascimento());
-        cliente.setTipoDocumento(clienteDTO.tipoDocumento());
-        cliente.setNumeroDocumento(clienteDTO.numeroDocumento());
-
-        clienteRepository.save(cliente);
-
+        clienteService.cadastrar(clienteDTO);
     }
 
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id) {
-        Cliente cliente = clienteRepository.findById(id).orElseThrow();
-        clienteRepository.delete(cliente);
-
+        clienteService.deletar(id);
     }
 
     @GetMapping("/{id}")
-    public ClienteViewDTO getByid(@PathVariable Long id){
-       return new ClienteViewDTO (clienteRepository.findById(id).orElseThrow());
+    public ClienteViewDTO getByid(@PathVariable Long id) {
+        return clienteService.getByid(id);
     }
 
     @GetMapping
-    public List<ClienteViewDTO> getAll(){
-        List<Cliente> clienteList = clienteRepository.findAll();
-        return clienteList.stream()
-                .map(ClienteViewDTO::new)
-                .toList();
+    public List<ClienteViewDTO> getAll() {
+        return clienteService.getAll();
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id,@RequestBody ClienteDTO clienteDTO){
-        Cliente cliente = clienteRepository.findById(id).orElseThrow();
-        cliente.setNome(clienteDTO.nome());
-        cliente.setDataNascimento(clienteDTO.dataNascimento());
-        cliente.setTipoDocumento(clienteDTO.tipoDocumento());
-        cliente.setNumeroDocumento(clienteDTO.numeroDocumento());
-
-        clienteRepository.save(cliente);
-
+    public void update(@PathVariable Long id, @RequestBody ClienteDTO clienteDTO) {
+        clienteService.update(id, clienteDTO);
     }
 }

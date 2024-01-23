@@ -2,8 +2,7 @@ package com.sistemaloja.controller;
 
 import com.sistemaloja.dto.ProdutoDTO;
 import com.sistemaloja.dto.ProdutoViewDTO;
-import com.sistemaloja.model.Produto;
-import com.sistemaloja.repository.ProdutoRepository;
+import com.sistemaloja.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,53 +12,31 @@ import java.util.List;
 @RequestMapping("/produtos")
 public class ProdutoController {
     @Autowired
-    private ProdutoRepository produtoRepository;
+    private ProdutoService produtoService;
 
     @PostMapping
-    public void cadastrar(@RequestBody ProdutoDTO produtoDTO){
-        Produto produto = new Produto();
-
-        produto.setDescricao(produtoDTO.descricao());
-        produto.setPreco(produtoDTO.preco());
-        produto.setQuantidade(produtoDTO.quantidade());
-        produto.setQuantidadeMinima(produtoDTO.quantidadeMinima());
-        produto.setNome(produtoDTO.nome());
-
-        produtoRepository.save(produto);
-
+    public void cadastrar(@RequestBody ProdutoDTO produtoDTO) {
+        produtoService.cadastrar(produtoDTO);
     }
-    @DeleteMapping("/{id}")
-    public void deletarById(@PathVariable Long id){
-        Produto produto = produtoRepository.findById(id).orElseThrow();
-        produtoRepository.delete(produto);
 
+    @DeleteMapping("/{id}")
+    public void deletarById(@PathVariable Long id) {
+        produtoService.deletarById(id);
     }
 
     @GetMapping("/{id}")
-    public ProdutoViewDTO findById(@PathVariable Long id){
-     return new ProdutoViewDTO(produtoRepository.findById(id).orElseThrow());
-
+    public ProdutoViewDTO findById(@PathVariable Long id) {
+        return produtoService.findById(id);
     }
-    @GetMapping
-    public List<ProdutoViewDTO> findAll(){
-     List<Produto>produtoList = produtoRepository.findAll();
 
-     return produtoList.stream()
-             .map(ProdutoViewDTO::new)
-             .toList();
+    @GetMapping
+    public List<ProdutoViewDTO> findAll() {
+        return produtoService.findAll();
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id, @RequestBody ProdutoDTO produtoDTO){
-       Produto produto = produtoRepository.findById(id).orElseThrow();
-        produto.setNome(produtoDTO.nome());
-        produto.setPreco(produtoDTO.preco());
-        produto.setDescricao(produtoDTO.descricao());
-        produto.setQuantidadeMinima(produtoDTO.quantidadeMinima());
-        produto.setQuantidade(produtoDTO.quantidade());
-
-        produtoRepository.save(produto);
-
+    public void update(@PathVariable Long id, @RequestBody ProdutoDTO produtoDTO) {
+        produtoService.update(id, produtoDTO);
     }
 
 }

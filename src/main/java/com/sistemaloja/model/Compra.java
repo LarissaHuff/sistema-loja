@@ -25,6 +25,10 @@ public class Compra {
     @Enumerated(EnumType.STRING)
     private TipoPagamento tipoPagamento;
 
+    @ManyToOne
+    @JoinColumn(name= "id_cupom")
+    private Cupom cupom;
+
     @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL)
     private List<DetalheCompra> detalheCompraList;
 
